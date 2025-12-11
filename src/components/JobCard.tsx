@@ -1,28 +1,35 @@
 import type { Job } from "@/types/job";
-// Import the UI components (Card, CardContent, CardHeader, CardTitle) from shadcn
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// Import Badge and Button
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 
-// Import the Trash2 icon from lucide-react
 import { Trash2Icon } from "lucide-react";
 
-// Import the useJobStore hook
 import { useJobStore } from "@/store";
 
-// Define the Props interface (we need a 'job' object)
 interface JobCardProps {
   job: Job;
 }
 // Create the component function
 export function JobCard({ job }: JobCardProps) {
-  // Hook: Get the 'deleteJob' action from our store
   const deleteJob = useJobStore((state) => state.deleteJob);
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: job.id, // The ID we send to 'handleDragEnd' in App.tsx
+  });
+  const style = {
+    transform: CSS.Translate.toString(transform),
+  };
   return (
-    // Root: Card component.
-    // Styling: Needs 'group' for hover effects, 'relative', and cursor classes for dragging.
-    <Card className="group relative hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing bg-white">
+    <Card
+     
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className="group relative hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing bg-white"
+    >
       {/* Header Section */}
       <CardHeader className="...">
         <div className="flex justify-between items-start">
