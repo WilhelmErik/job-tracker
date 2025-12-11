@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { v4 as uuidv4 } from "uuid";
 import type { Job, Status } from "./types/job";
 
@@ -9,54 +10,45 @@ interface JobStore {
   deleteJob: (id: string) => void;
 }
 
-export const useJobStore = create<JobStore>((set) => ({
-  // 1. Initial State (Dummy Data)
-  jobs: [
-    {
-      id: uuidv4(),
-      company: "Spotify",
-      title: "Frontend Developer",
-      status: "APPLIED",
-      date: new Date().toISOString(),
-    },
-    {
-      id: uuidv4(),
-      company: "Klarna",
-      title: "React Engineer",
-      status: "INTERVIEW",
-      date: new Date().toISOString(),
-    },
-    {
-      id: uuidv4(),
-      company: "Google",
-      title: "Tech Lead",
-      status: "REJECTED",
-      date: new Date().toISOString(),
-    },
-  ],
+// Note the extra () parentheses! This is "Currying".
+// We wrap the whole store function inside persist().
+export const useJobStore = create<JobStore>()(
+  persist(
+    (set) => ({
+      // 1. Initial State
+      // We start empty because the persist middleware will
+      // automatically load any saved data from localStorage.
+      jobs: [],
 
-  // 2. Actions (The logic)
-  addJob: (company, title) =>
-    set((state) => ({
-      jobs: [
-        ...state.jobs,
-        {
-          id: uuidv4(),
-          company,
-          title,
-          status: "APPLIED",
-          date: new Date().toISOString(),
-        },
-      ],
-    })),
+      // 2. Actions
+      addJob: (company, title) =>
+        set((state) => ({
+          jobs: [
+            ...state.jobs,
+            {
+              id: uuidv4(),
+              company,
+              title,
+              status: "APPLIED",
+              date: new Date().toISOString(),
+            },
+          ],
+        })),
 
-  moveJob: (id, newStatus) =>
-    set((state) => ({
-      jobs: state.jobs.map((job) => (job.id === id ? { ...job, status: newStatus } : job)),
-    })),
+      moveJob: (id, newStatus) =>
+        set((state) => ({
+          jobs: state.jobs.map((job) => (job.id === id ? { ...job, status: newStatus } : job)),
+        })),
 
-  deleteJob: (id) =>
-    set((state) => ({
-      jobs: state.jobs.filter((job) => job.id !== id),
-    })),
-}));
+      deleteJob: (id) =>
+        set((state) => ({
+          jobs: state.jobs.filter((job) => job.id !== id),
+        })),
+    }),
+    {
+      // 3. Configuration
+      name: "job-tracker-storage", // The unique name in your browser's memory
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
