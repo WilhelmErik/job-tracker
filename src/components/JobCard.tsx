@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
-import { Trash2Icon } from "lucide-react";
+import { Trash2Icon, GripVertical } from "lucide-react";
 
 import { useJobStore } from "@/store";
 
@@ -23,16 +23,23 @@ export function JobCard({ job }: JobCardProps) {
   };
   return (
     <Card
-     
       ref={setNodeRef}
       style={style}
-      {...listeners}
       {...attributes}
-      className="group relative hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing bg-white"
+      className="group relative hover:shadow-md transition-shadow  bg-white"
     >
       {/* Header Section */}
-      <CardHeader className="...">
+      <CardHeader className="p-4 pb-2">
         <div className="flex justify-between items-start">
+          <div className="flex gap-2 items-start">
+            <button
+              className="cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-600 mt-1"
+              {...listeners}
+            >
+              <GripVertical />
+            </button>
+          </div>
+
           {/* Company Name (CardTitle) */}
           <CardTitle className="text-sm font-medium">{job.company}</CardTitle>
           {/* Delete Button */}

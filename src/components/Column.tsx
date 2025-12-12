@@ -13,7 +13,7 @@ export function Column({ id, title, count, children }: ColumnProps) {
     id: id,
   });
   const style = {
-    opacity: isOver ? 1 : 0.5,
+    opacity: isOver ? 1 : 0.7,
   };
 
   return (
