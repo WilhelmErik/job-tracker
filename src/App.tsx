@@ -1,6 +1,6 @@
 import { useJobStore } from "./store";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+// import { useState } from "react";
+// import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/JobCard";
 import { AddJobForm } from "./components/AddJobForm";
 import { DndContext } from "@dnd-kit/core";
@@ -36,7 +36,7 @@ export default function App() {
     { id: "OFFER", title: "Offer" },
     { id: "REJECTED", title: "Rejected" },
   ];
-  const [parent, setParent] = useState(null);
+  // const [parent, setParent] = useState(null);
 
   return (
     <div className="p-10 bg-slate-50 min-h-screen">
