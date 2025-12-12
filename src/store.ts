@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { v4 as uuidv4 } from "uuid";
-import type { Job, Status } from "./types/job";
+import type { Job, Status ,JobSource} from "./types/job";
 
 interface JobStore {
   jobs: Job[];
-  addJob: (company: string, title: string) => void;
+  addJob: (company: string, title: string, source: JobSource) => void;
   moveJob: (id: string, newStatus: Status) => void;
   deleteJob: (id: string) => void;
 }
@@ -21,7 +21,7 @@ export const useJobStore = create<JobStore>()(
       jobs: [],
 
       // 2. Actions
-      addJob: (company, title) =>
+      addJob: (company, title,source) =>
         set((state) => ({
           jobs: [
             ...state.jobs,
@@ -30,6 +30,7 @@ export const useJobStore = create<JobStore>()(
               company,
               title,
               status: "APPLIED",
+              source,
               date: new Date().toISOString(),
             },
           ],
