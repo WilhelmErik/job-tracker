@@ -7,11 +7,17 @@
 • State Management: Connect Kanban actions to Zustand store.
 
 🎨 Phase 2: UX & Polish (Next Up)
-• Mobile Responsiveness: Ensure columns stack or scroll well on phones.
+• Mobile Responsiveness: Ensure columns stack or scroll well on phones.[]
 
-• Data Persistence: Save data to local storage (or database) so it doesn't vanish on refresh.
+• Data Persistence: Save data to local storage (or database) so it doesn't vanish on refresh. [X]
 
-• Job Card Details: Expand card to show notes, salary, and links.
+• Job Card Details: Expand card to show notes, salary, and links.[]
+
+• UI Fixes: Add Darkmode and tweak layout []
+
+• Dashboard : Add a dashboard to be able to see stats of the applied jobs[]
+
+
 
 🚀 Phase 3: "Engineer" Level Features (Future)
 • Backend Integration: Move from dummy data to a real Node/Express backend.

@@ -31,14 +31,7 @@ export function JobCard({ job }: JobCardProps) {
       {/* Header Section */}
       <CardHeader className="p-4 pb-2">
         <div className="flex justify-between items-start">
-          <div className="flex gap-2 items-start">
-            <button
-              className="cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-600 mt-1"
-              {...listeners}
-            >
-              <GripVertical />
-            </button>
-          </div>
+         
 
           {/* Company Name (CardTitle) */}
           <CardTitle className="text-sm font-medium">{job.company}</CardTitle>
@@ -71,7 +64,16 @@ export function JobCard({ job }: JobCardProps) {
           <Badge variant="secondary" className="text-[10px] px-1 py-0 h5 font-normal">
             {new Date(job.date).toLocaleDateString()}
           </Badge>
+          <div className="flex gap-2 items-end">
+            <button
+              className="opacity-0 group-hover:opacity-80 transition-opacity cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-600 mt-1"
+              {...listeners}
+            >
+              <GripVertical />
+            </button>
+          </div>
         </div>
+         
       </CardContent>
     </Card>
   );
