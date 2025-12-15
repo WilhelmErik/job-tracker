@@ -9,6 +9,7 @@ import { Column } from "./components/Column";
 // import { Draggable } from "@/Draggable";
 // import { Droppable } from "@/Droppable";
 import type { ColumnType,Status } from "./types/job";
+import DashboardStats from "./components/DashboardStats";
 export default function App() {
   const { jobs, moveJob } = useJobStore();
 
@@ -43,6 +44,7 @@ export default function App() {
       <h1 className="text-3xl font-bold mb-8">Job Application Tracker</h1>
 
       <AddJobForm />
+      <DashboardStats />
 
       <DndContext onDragEnd={handleDragEnd}>
         <div className="flex gap-6 overflow-x-auto pb-4 h-[calc(100vh-150px)]">
