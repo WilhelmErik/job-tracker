@@ -1,5 +1,7 @@
 import { useJobStore } from "./store";
-// import { useState } from "react";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 // import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/JobCard";
 import { AddJobForm } from "./components/AddJobForm";
@@ -8,11 +10,15 @@ import type { DragEndEvent } from "@dnd-kit/core";
 import { Column } from "./components/Column";
 // import { Draggable } from "@/Draggable";
 // import { Droppable } from "@/Droppable";
-import type { ColumnType,Status } from "./types/job";
+import type { ColumnType, Status } from "./types/job";
 import DashboardStats from "./components/DashboardStats";
 export default function App() {
   const { jobs, moveJob } = useJobStore();
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const query = searchTerm.toLowerCase();
+  const filteredJobs = jobs.filter(
+    (job) => job.company.toLowerCase().includes(query) || job.title.toLowerCase().includes(query)
+  );
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
@@ -30,7 +36,7 @@ export default function App() {
       moveJob(jobId, newStatus);
     }
   }
-  
+
   const COLUMNS: ColumnType[] = [
     { id: "APPLIED", title: "Applied" },
     { id: "INTERVIEW", title: "Interview" },
@@ -45,11 +51,20 @@ export default function App() {
 
       <AddJobForm />
       <DashboardStats />
-
-      <DndContext onDragEnd={handleDragEnd}>
+      <div className="relative flex-1 md:w-64">
+        {" "}
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
+        <Input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search by company or role..."
+          className="pl-9 bg-white"
+        ></Input>
+      </div>
+       <DndContext onDragEnd={handleDragEnd}>
         <div className="flex gap-6 overflow-x-auto pb-4 h-[calc(100vh-150px)]">
           {COLUMNS.map((column) => {
-            const columnJobs = jobs.filter((job) => job.status === column.id);
+            const columnJobs = filteredJobs.filter((job) => job.status === column.id);
 
             return (
               <Column key={column.id} id={column.id} title={column.title} count={columnJobs.length}>
@@ -63,5 +78,4 @@ export default function App() {
       </DndContext>
     </div>
   );
-  
 }
