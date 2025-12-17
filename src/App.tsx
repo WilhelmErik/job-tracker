@@ -61,7 +61,7 @@ export default function App() {
           className="pl-9 bg-white"
         ></Input>
       </div>
-       <DndContext onDragEnd={handleDragEnd}>
+      <DndContext onDragEnd={handleDragEnd}>
         <div className="flex gap-6 overflow-x-auto pb-4 h-[calc(100vh-150px)]">
           {COLUMNS.map((column) => {
             const columnJobs = filteredJobs.filter((job) => job.status === column.id);
