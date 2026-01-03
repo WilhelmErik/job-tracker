@@ -1,3 +1,43 @@
 import React from "react";
+import { Job } from "@/types/job"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet"
 
-export function JobDetailSheet(): void {}
+interface JobDetailSheetProps {
+  isOpen: boolean
+  onClose: () => void
+  job: Job | null
+}
+export function JobDetailSheet({ isOpen, onClose, job }: JobDetailSheetProps) {
+  if (!job) return null
+
+  return (
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent className="w-[400px] sm:w-[540px]">
+        <SheetHeader>
+          <SheetTitle className="text-xl font-bold">{job.company}</SheetTitle>
+          <SheetDescription className="text-base">
+            {job.title}
+          </SheetDescription>
+        </SheetHeader>
+        
+        <div className="mt-8 space-y-4">
+          <div className="p-4 bg-slate-50 rounded-lg border">
+            <h3 className="text-sm font-medium text-slate-500 mb-1">Status</h3>
+            <p className="font-semibold capitalize">{job.status}</p>
+          </div>
+          
+          <div className="p-4 bg-slate-50 rounded-lg border">
+            <h3 className="text-sm font-medium text-slate-500 mb-1">Source</h3>
+            <p className="font-semibold">{job.source || "Not specified"}</p>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
+}
