@@ -1,5 +1,4 @@
-import React from "react";
-import { Job } from "@/types/job"
+import type { Job } from "@/types/job"
 import {
   Sheet,
   SheetContent,
