@@ -16,7 +16,7 @@ interface JobCardProps {
 export function JobCard({ job }: JobCardProps) {
   const deleteJob = useJobStore((state) => state.deleteJob);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: job.id, // The ID we send to 'handleDragEnd' in App.tsx
+    id: job.id, //ID for 'handleDragEnd' in  the app.tsx component
   });
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -27,7 +27,7 @@ export function JobCard({ job }: JobCardProps) {
       case "LINKEDIN":
         return "bg-blue-100 text-blue-700 border-blue-200";
       case "INDEED":
-        return "bg-blue-100 text-blue-700 border-blue-200"; // similar blue
+        return "bg-blue-100 text-blue-700 border-blue-200"; 
       case "COMPANY_SITE":
         return "bg-purple-100 text-purple-700 border-purple-200";
       default:
