@@ -12,6 +12,8 @@ import { Column } from "./components/Column";
 // import { Droppable } from "@/Droppable";
 import type { ColumnType, Status } from "./types/job";
 import DashboardStats from "./components/DashboardStats";
+import { JobDetailSheet } from "./components/JobDetailSheet";
+import type { Job } from "./types/job";
 export default function App() {
   const { jobs, moveJob } = useJobStore();
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,6 +38,7 @@ export default function App() {
       moveJob(jobId, newStatus);
     }
   }
+  const [selectedJob, setSelectedJob] = useState<Job| null>(null);
 
   const COLUMNS: ColumnType[] = [
     { id: "APPLIED", title: "Applied" },
@@ -47,6 +50,10 @@ export default function App() {
 
   return (
     <div className="p-10 bg-slate-50 min-h-screen">
+        <JobDetailSheet isOpen={!!selectedJob} onClose={()=> setSelectedJob(null)} job={selectedJob}/> 
+      <button
+        onClick={() => setSelectedJob(jobs[1])}>test</button>
+      
       <h1 className="text-3xl font-bold mb-8">Job Application Tracker</h1>
 
       <AddJobForm />
