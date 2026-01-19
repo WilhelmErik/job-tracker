@@ -1,7 +1,7 @@
 import { useJobStore } from "./store";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 // import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/JobCard";
 import { AddJobForm } from "./components/AddJobForm";
@@ -19,7 +19,7 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const query = searchTerm.toLowerCase();
   const filteredJobs = jobs.filter(
-    (job) => job.company.toLowerCase().includes(query) || job.title.toLowerCase().includes(query)
+    (job) => job.company.toLowerCase().includes(query) || job.title.toLowerCase().includes(query),
   );
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -38,8 +38,11 @@ export default function App() {
       moveJob(jobId, newStatus);
     }
   }
-  const [selectedJob, setSelectedJob] = useState<Job| null>(null);
-
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  useEffect(()=>{
+    console.log(selectedJob);
+  
+  },[selectedJob])
   const COLUMNS: ColumnType[] = [
     { id: "APPLIED", title: "Applied" },
     { id: "INTERVIEW", title: "Interview" },
@@ -47,13 +50,19 @@ export default function App() {
     { id: "REJECTED", title: "Rejected" },
   ];
   // const [parent, setParent] = useState(null);
-
+  function setAJob()  {
+    setSelectedJob(jobs[1]);
+    console.log(jobs);
+   };
   return (
     <div className="p-10 bg-slate-50 min-h-screen">
-        <JobDetailSheet isOpen={!!selectedJob} onClose={()=> setSelectedJob(null)} job={selectedJob}/> 
+      <JobDetailSheet isOpen={!!selectedJob} onClose={() => setSelectedJob(null)} job={selectedJob} />
       <button
-        onClick={() => setSelectedJob(jobs[1])}>test</button>
-      
+        onClick={setAJob}
+      >
+        test
+      </button>
+
       <h1 className="text-3xl font-bold mb-8">Job Application Tracker</h1>
 
       <AddJobForm />
