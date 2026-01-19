@@ -32,7 +32,7 @@ export function JobDetailSheet({ isOpen, onClose, job }: JobDetailSheetProps) {
             <p className="font-semibold capitalize">{job.status}</p>
           </div>
           
-          <div className="p-4 bg-secondary rounded-lg border">
+          <div className="p-4 bg-muted rounded-lg border">
             <h3 className="text-sm font-medium text-muted-foreground mb-1">Source</h3>
             <p className="font-semibold">{job.source || "Not specified"}</p>
           </div>
