@@ -11,8 +11,7 @@ export function DashboardStats() {
   const jobOffers = jobs.filter((job) => job.status === "OFFER").length;
 
   const interviewRate = jobInterviews > 0 ? Math.round((jobInterviews / totalJobs) * 100) : 0;
-
-  // console.log(jobInterviews, ":interviews", interviewRate, ":rate");
+ 
   return (
     <div className="grid gap-4 md:grid-cols-3 mb-6">
       <Card>
