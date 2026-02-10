@@ -27,7 +27,7 @@ export function JobCard({ job }: JobCardProps) {
       case "LINKEDIN":
         return "bg-blue-100 text-blue-700 border-blue-200";
       case "INDEED":
-        return "bg-blue-100 text-blue-700 border-blue-200"; 
+        return "bg-blue-100 text-blue-700 border-blue-200";
       case "COMPANY_SITE":
         return "bg-purple-100 text-purple-700 border-purple-200";
       default:
@@ -48,7 +48,7 @@ export function JobCard({ job }: JobCardProps) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      className="group relative hover:shadow-md transition-shadow  bg-white"
+      className="group relative hover:shadow-md transition-shadow  bg-primary"
     >
       {/* Header Section */}
       <CardHeader className="p-4 pb-2">
